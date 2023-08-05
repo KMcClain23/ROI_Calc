@@ -1,5 +1,6 @@
 
 
+
 # Income - Rental Income $2,000, Laundry $0, storage $0, misc $0
     # Total Monthly Income = $2,000
 
@@ -34,6 +35,21 @@ def loading_animation():
             time.sleep(0.1)
             sys.stdout.write('\b')
 
+def beep_boop_animation():
+    animation = "|/-\\"
+    sys.stdout.write("beep boop beep bop")
+    for _ in range(6):
+        for char in animation:
+            sys.stdout.write(char)
+            sys.stdout.flush()
+            time.sleep(0.1)
+            sys.stdout.write('\b')
+
+def animate_typing(text, delay=0.1):
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+
 # def print_strikethrough(text):
 #     strikethrough_text = f"\033[9m{text}\033[0m"
 #     return strikethrough_text
@@ -61,7 +77,7 @@ class Roi_calc():
                 return total_income
             except ValueError:
                 clear_output()
-                print("Invalid input. You're a human. You should know better. I'm honestly ashamed of you.\n")
+                animate_typing("Invalid input. You are a human. You should know better. I am ashamed of you.\n")
     def expense(self):
         while True:
             try:
@@ -85,14 +101,14 @@ class Roi_calc():
                 return total_expense
             except ValueError:
                 clear_output()
-                print("Invalid input. You're a human. You should know better. I'm honestly ashamed of you.\n")
+                animate_typing("Invalid input. You are a human. You should know better. I am ashamed of you.\n")
     
     def cash_on_cash(self, annual_cash_flow, total_investment):
         cash_on_cash = annual_cash_flow / total_investment
         return cash_on_cash
     
     def total_investment(self):
-        total_invest_response = float(input("What was your total investment?"))
+        total_invest_response = float(input("What was your total investment? $"))
         return total_invest_response
         
     def cash_flow(self, total_income, total_expense):
@@ -109,58 +125,100 @@ def clear_output():
 
 class Main:
     clear_output()
-    print("Welcome to your ROI calculator.\n\nPutting all our eggs in one basket.")
+    animate_typing("Welcome to Laggy Larry's ROI calculator and foot massage.\n\nPutting all of your eggs in one basket.\n")
     loading_animation()
     hello = Roi_calc()
     clear_output()
-    print(f"Let's start by gathering your income information.")
-    time.sleep(3)
+    animate_typing(f"Time to get started by gathering your income information.\n")
+    beep_boop_animation()
     clear_output()
-    print("Please answer these next 4 questions about your income.")
-    time.sleep(3)
+    animate_typing("Please answer these next 4 questions about your income.\n")
+    beep_boop_animation()
     clear_output()
     total_income = hello.income()
     print('\n')
-    print(f"You've entered a total income of ${total_income:.2f}.")
-    response = input("Does that look right? Please choose (y/n)")
+    clear_output()
+    print("calculating...you will make me do this a lot.")
+    beep_boop_animation()
+    clear_output()
+    animate_typing(f"\nYou have entered a total income of ${total_income:.2f} per month.\n\n")
+    response = input("Does that look right? Please choose (y/n) ")
     while True:
         if response == 'y':
             clear_output()
-            print(f"Next, we will gather your expenses.")
-            time.sleep(3)
+            animate_typing(f"Great! Next, we will gather your expenses.\n")
+            beep_boop_animation()
             clear_output()
-            print("Please answer these next 15 questions about your expenses.")
-            time.sleep(3)
+            animate_typing("Please answer these next 15 questions about your expenses.\n")
+            beep_boop_animation()
             clear_output()
             total_expense = hello.expense()
             break
         elif response == 'n':
             clear_output()
-            print("Sorry. I'm not perfect...")
+            animate_typing("Sorry. I am not perfect yet...geez\n")
             total_income = hello.income()
-            print('\n')
-            print(f"You've entered a total income of ${total_income:.2f}.")
-            response = input("Does that look right? Please choose (y/n)")
+            print('\n\n')
+            beep_boop_animation()
+            clear_output()
+            animate_typing(f"\nYou have entered a total income of ${total_income:.2f}.")
+            response = input("Does that look right? Please choose (y/n). ")
             continue
         else:
             clear_output()
-            print("Invalid input. Please enter 'y' or 'n'.")
+            animate_typing("Invalid input. Please enter 'y' or 'n'. ")
             time.sleep(2)
             clear_output()
-            print(f"You've entered a total income of ${total_income:.2f}.")
-            response = input("Does that look right? Please choose (y/n)")
+            beep_boop_animation()
+            animate_typing(f"You have entered a total income of ${total_income:.2f}.")
+            response = input("Does that look right? Please choose (y/n). ")
             print('\n')
             continue
     clear_output()
-    print(f"You've entered a total expense of ${total_expense:.2f}. Does that look right? ")
+    beep_boop_animation()
+    clear_output()
+    animate_typing(f"You've entered a total expense of ${total_expense:.2f}.")
+    response = input("\n\nDoes that look right? Please choose (y/n). ")
+    while True:
+        if response == 'y':
+            clear_output()
+            animate_typing(f"Next, we will calculate your cash flow.\n")
+            beep_boop_animation()
+            clear_output()
+            break
+        elif response == 'n':
+            clear_output()
+            animate_typing("Sorry. I am only CLOSE to perfect. My bad I guess...")
+            total_expense = hello.expense()
+            print('\n')
+            clear_output()
+            animate_typing(f"You have entered a total expense of ${total_expense:.2f}.")
+            response = input("Does that look right? Please choose (y/n). ")
+            continue
+        else:
+            clear_output()
+            animate_typing("Invalid input. Please enter 'y' or 'n'. ")
+            time.sleep(2)
+            clear_output()
+            animate_typing(f"You have entered a total expense of ${total_expense:.2f}.")
+            response = input("Does that look right? Please choose (y/n). ")
+            print('\n')
+            continue
     cash_flow_value = float(hello.cash_flow(total_income, total_expense))
-    print(f"Based on the numbers you have entered, your \|/-\|/-")
+    if cash_flow_value <= 0:
+        animate_typing("Yowzers! I suggest to reach out to another human who works with numbers. You clearly cannot.\n\n")
+    beep_boop_animation()
+    clear_output()
+    animate_typing(f"\nBased on the numbers you have entered, your cashflow is ${cash_flow_value:.2f}\n")
+    beep_boop_animation()
+    print('\n')
+    clear_output()
     total_investment_value = float(hello.total_investment())
+    clear_output()
     annual_cash_flow_value = float(hello.annual_cash(cash_flow_value))
     cash_on_cash_roi_value = hello.cash_on_cash(annual_cash_flow_value, total_investment_value)
 
-    print(f"Your Cash ROI is {cash_on_cash_roi_value:.2f}")
+    animate_typing(f"\nYour Cash ROI is {cash_on_cash_roi_value:.2f}%!\n")
+    animate_typing("\nThank you for using Laggy Larry's ROI calculator and foot massage.\n\nFeedback? Find the README on my github page at https://github.com/KMcClain23/ROI_Calc")
 
 Main()
-
-
